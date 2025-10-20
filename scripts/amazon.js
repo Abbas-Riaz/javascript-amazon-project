@@ -1,6 +1,7 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+import { updateCartQuantity } from './utils/updatecartqunatity.js';
 
 let productsHTML = ''
 products.forEach(product => {
@@ -27,7 +28,7 @@ products.forEach(product => {
         </div>
 
         <div class="product-quantity-container">
-          <select>
+          <select class = "js-item-quantity">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -57,17 +58,8 @@ products.forEach(product => {
 
 
 
-function updateCartQuantity() {
+updateCartQuantity();
 
-  let cartQuantity = 0;
-  cart.forEach((item) => {
-
-    cartQuantity += item.quantity;
-  });
-  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
-  console.log(cart);
-
-}
 
 document.querySelector('.js-products-section').innerHTML = productsHTML;
 document.querySelectorAll('.js-add-to-cart').forEach((button) => {
@@ -83,5 +75,30 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
 
 });
 
+
+// const itemQuantity = parseInt(container.querySelector('.js-item-quantity').value, 10);
+
+// console.log("Product ID:", productId, "Qty:", itemQuantity);
+
+// let matchingItem;
+// cart.forEach((item) => {
+//   if (productId === item.productId) {
+//     matchingItem = item;
+//   }
+// });
+
+// if (matchingItem) {
+//   matchingItem.quantity += itemQuantity;
+// } else {
+//   cart.push({
+//     productId: productId,
+//     quantity: itemQuantity,
+//   });
+// }
+
+// let cartQuantity = 0;
+// cart.forEach((item) => {
+//   cartQuantity += item.quantity;
+// });
 
 

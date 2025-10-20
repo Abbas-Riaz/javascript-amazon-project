@@ -1,6 +1,8 @@
 import { cart, removeCartItem } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
+import { updateCartQuantity } from './utils/updatecartqunatity.js';
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 let cartSummaryHtml = '';
 cart.forEach((cartItem) => {
   let productId = cartItem.productId;
@@ -33,7 +35,7 @@ cart.forEach((cartItem) => {
                 <span>
                   Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary">
+                <span class="update-quantity-link link-primary  js-update-link js-update-${matchingProduct.id}"  data-product-id="${matchingProduct.id}" >
                   Update
                 </span>
                 <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
@@ -87,6 +89,7 @@ cart.forEach((cartItem) => {
   `;
 });
 
+updateCartQuantity();
 console.log(cartSummaryHtml);
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHtml;
 
@@ -95,9 +98,27 @@ document.querySelectorAll('.js-delete-link').forEach((link) => {
   link.addEventListener('click', () => {
     let productId = link.dataset.productId;
     removeCartItem(productId);
+    updateCartQuantity();
 
     document.querySelector(`.js-containere-${productId}`).remove();
 
   })
 
+});
+
+
+document.querySelectorAll('.js-update-link').forEach((link) => {
+
+  link.addEventListener('click', () => {
+
+    let productId = link.dataset.productId;
+
+
+
+    console.log('DELETE', productId);
+
+  })
 })
+let date = dayjs();
+const deliveryDate = date.add(7, 'days');
+console.log(deliveryDate.format('D ,MMM YYYY'));

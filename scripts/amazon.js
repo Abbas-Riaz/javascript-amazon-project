@@ -28,7 +28,7 @@ products.forEach(product => {
         </div>
 
         <div class="product-quantity-container">
-          <select class = "js-item-quantity">
+          <select class = "js-item-quantity" data-product-id="${product.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
